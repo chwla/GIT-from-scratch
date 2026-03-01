@@ -1,0 +1,41 @@
+import argparse
+import configparser
+from datetime import datetime
+from fnmatch import fnmatch
+import hashlib
+from math import ceil
+import os
+import re
+import sys
+import zlib
+
+
+    
+#Creating root parser
+parser = argparse.ArgumentParser(
+    description= "PyGit"
+)
+
+#Creating slot where commands will exist and forcing user to enter them
+sub_parser = parser.add_subparsers(title="Commands", dest="Commands")
+sub_parser.required = True
+
+def main(argv = sys.argv[1:]):
+    args = parser.parse_args(argv)
+    match args.Commands:
+        case "add": cmd_add(args)
+        case "cat_file": cmd_cat_file(args)
+        case "check_ignore": cmd_check_ignore(args)
+        case "checkout": cmd_checkout(args)
+        case "commit": cmd_commit(args)
+        case "hash-object": cmd_hash_object(args)
+        case "init": cmd_init(args)
+        case "log": cmd_log(args)
+        case "ls-files": cmd_ls_files(args)
+        case "ls-tree": cmd_ls_tree(args)
+        case "rev-parse": cmd_rev_parse(args)
+        case "rm": cmd_rm(args)
+        case "show-ref": cmd_show_ref(args)
+        case "status": cmd_status(args)
+        case "tag": cmd_tag(args)
+        case _: print("Command doesn't exist")
